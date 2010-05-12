@@ -7,7 +7,7 @@ copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visual
 authors: [André Fiedler, eskimoblood]
 
 requires: 
-  core:1.2.3: 
+  core/1.2.3: 
   - Class.Extras
   - Element.Event
   - Element.Style
