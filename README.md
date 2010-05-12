@@ -10,7 +10,7 @@ Like the Fx.Tween effect, Fx.Tween.CSS3 is used to transition any CSS property f
 
 ### Demo:
 
-You can see a simple online demo in [this shell](http://jsfiddle.net/SunboX/qTnfb/)
+You can see a simple online demo in [this shell](http://jsfiddle.net/SunboX/TAVWa/)
 
 
 ### Options, Events:
