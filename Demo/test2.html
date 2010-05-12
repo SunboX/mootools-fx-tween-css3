@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fx.Tween.CSS3 Demo</title>
+
+<style type="text/css">
+	
+	.test {
+		background-color: #0000ff;
+		float: left;
+	    width: 100px;
+		height: 100px;
+	}
+	
+	#btns {
+		position: absolute;
+		top: 20;
+		left: 20;
+		width: 200px;
+		z-index: 3;
+		background: white;
+		padding: 10px;
+	}
+	
+	.current {
+		color: red;
+	}
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js"></script>
+<script type="text/javascript" src="../Source/Fx.Tween.CSS3.js"></script>
+<script type="text/javascript">
+
+	Global = {};
+
+	window.addEvent('domready', function(){
+		
+		for(var i = 0; i < 200; i++) new Element('div').addClass('test').inject(document.body);
+		
+		var els = $$('.test');
+		
+		Global.setCSS2 = function(){
+			
+			$('css2').addClass('current');
+			
+			Global.timer = (function(){
+				
+				if(els.length == 0){
+					$clear(Global.timer);
+					return;
+				}
+				
+				var el = els.pop();
+				console.log(el);
+				
+				new Fx.Tween(el, {
+					duration: 700,
+					onComplete: function(){
+						this.start('background-color', '#0000ff', '#ffffff');
+					}
+				}).start('background-color', '#0000ff', '#ffffff');
+				
+			}).periodical('50');
+		}
+		
+		Global.setCSS3 = function(){
+		
+			$('css3').addClass('current');
+			
+			Global.timer = (function(){
+				
+				if(els.length == 0){
+					$clear(Global.timer);
+					return;
+				}
+				
+				var el = els.pop();
+				
+				new Fx.Tween.CSS3(el, {
+					duration: 700,
+					onComplete: function(){
+						this.start('background-color', '#0000ff', '#ffffff');
+					}
+				}).start('background-color', '#0000ff', '#ffffff');
+				
+			}).periodical('50');
+		}
+		
+		if(window.location.search == '?css2'){
+			console.log('CSS 2');
+			Global.setCSS2();
+		} else {
+			console.log('CSS 3');
+			Global.setCSS3();
+		}
+		
+	});
+		
+</script>
+
+</head>
+<body>
+	<div id="btns">
+		<a href="test2.html?css2" id="css2">Fx.Tween</a> <a href="test2.html?css3" id="css3">Fx.Tween.CSS3</a>
+	</div>
+</body>
+</html>
