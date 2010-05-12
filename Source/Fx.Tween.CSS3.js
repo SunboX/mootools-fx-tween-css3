@@ -3,8 +3,7 @@
 script: Fx.Tween.CSS3.js
 license: MIT-style license.
 description: Same behavior like Fx.Tween but tries to use native CSS3 transition if possible.
-copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visualdrugs dot net>
-based on code by eskimoblood (mootools users group)
+copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visualdrugs dot net>, based on code by eskimoblood (mootools users group)
 authors: [André Fiedler, eskimoblood]
 
 requires: 
