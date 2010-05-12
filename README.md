@@ -5,7 +5,7 @@ Mimics the Fx.Tween behavior but tries to use native CSS3 transition if possible
 Like the Fx.Tween effect, Fx.Tween.CSS3 is used to transition any CSS property from one value to another.
 
 
-#### Demo:
+### Demo:
 
 You can see a simple online demo in [this shell](http://jsfiddle.net/SunboX/qTnfb/)
 
