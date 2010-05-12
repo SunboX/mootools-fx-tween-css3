@@ -96,8 +96,6 @@ Fx.Tween.CSS3 = new Class({
     start: function(property, from, to){  
         if (this.css3Supported) {
             this.boundComplete = function(event){
-				
-					console.log(event.getElapsedTime());
                 if(event.getPropertyName() == property /* && event.getElapsedTime() == this.options.duration */ ){
                     this.element.removeEvent('transitionend', this.boundComplete);
                     this.onComplete();
