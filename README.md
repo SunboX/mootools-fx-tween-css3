@@ -36,11 +36,19 @@ Like:
 
 - Safari 4: 30% faster than Fx.Tween
 - Google Chrome 5: nearly equal compared to Fx.Tween
-- Firefox 3.6: nearly equal compared to Fx.Tween
+- Firefox 3.6.3: nearly equal compared to Fx.Tween
+- Opera 10.53: nearly equal compared to Fx.Tween
 
 #### Tested on iPhone 3GS:
 
 - Mobile Safari: runns a lot faster (and smoother) than Fx.Tween (with default fps)
+
+#### Tested on Windows 7:
+
+- Safari 4: a lot faster than Fx.Tween (200 running instances of Fx.Tween hangs the browser, 200 Fx.Tween.CSS3 instances still working (40% CPU usage))
+- Google Chrome 5: 50% faster than Fx.Tween
+- Firefox 3.6.3: nearly equal compared to Fx.Tween
+- Opera 10.53: nearly equal compared to Fx.Tween
 
 
 How to use
