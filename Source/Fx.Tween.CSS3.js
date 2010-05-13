@@ -91,8 +91,8 @@ Fx.Tween.CSS3 = new Class({
         this.css3Supported = !!this.transition && !!this.transitionTimings[this.options.transition];
     },
 
-	check: function(){
-        if (!this.timer && !this.boundComplete) return true;
+   check: function(){
+        if (!this.timer || !this.boundComplete) return true;
         switch (this.options.link){
             case 'cancel': this.cancel(); return true;
             case 'chain': this.chain(this.caller.bind(this, arguments)); return false;
@@ -139,6 +139,7 @@ Fx.Tween.CSS3 = new Class({
             this.boundComplete = null;
         }
         this.parent();
+        return this;
     }
 
 });

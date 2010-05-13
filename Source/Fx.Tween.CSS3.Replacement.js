@@ -94,7 +94,7 @@ Fx.Tween = new Class({
     },
         
     check: function(){
-        if (!this.timer && !this.boundComplete) return true;
+        if (!this.timer || !this.boundComplete) return true;
         switch (this.options.link){
             case 'cancel': this.cancel(); return true;
             case 'chain': this.chain(this.caller.bind(this, arguments)); return false;
@@ -141,6 +141,7 @@ Fx.Tween = new Class({
             this.boundComplete = null;
         }
         this.parent();
+        return this;
     }
 
 });
