@@ -92,14 +92,14 @@ Fx.Tween.CSS3 = new Class({
     },
 
 	check: function(){
-		if (!this.timer && !this.boundComplete) return true;
-		switch (this.options.link){
-			case 'cancel': this.cancel(); return true;
-			case 'chain': this.chain(this.caller.bind(this, arguments)); return false;
-		}
-		return false;
-	},
-        
+        if (!this.timer && !this.boundComplete) return true;
+        switch (this.options.link){
+            case 'cancel': this.cancel(); return true;
+            case 'chain': this.chain(this.caller.bind(this, arguments)); return false;
+        }
+        return false;
+    },
+
     start: function(property, from, to){  
         if (this.css3Supported) {
             if (!this.check(property, from, to)) return this;
@@ -118,11 +118,11 @@ Fx.Tween.CSS3 = new Class({
             this.element.addEvent('transitionend', this.boundComplete);
             var trans = function(){
                 this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + this.transitionTimings[this.options.transition] + ')');
-                this.element.setStyle(this.property, (this.to || this.from));
+                this.element.setStyle(this.property, this.to[0].value);
             }.bind(this);
-            if(this.to){
+            if(args[1]){
                 this.element.setStyle(this.transition, 'none');
-                this.element.setStyle(this.property, this.from);
+                this.element.setStyle(this.property, this.from[0].value);
                 trans.delay(0.1);
             } else
                 trans();
