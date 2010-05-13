@@ -90,18 +90,28 @@ Fx.Tween.CSS3 = new Class({
         this.transition = this.element.supportVendorStyle('transition');
         this.css3Supported = !!this.transition && !!this.transitionTimings[this.options.transition];
     },
+
+	check: function(){
+		if (!this.timer && !this.boundComplete) return true;
+		switch (this.options.link){
+			case 'cancel': this.cancel(); return true;
+			case 'chain': this.chain(this.caller.bind(this, arguments)); return false;
+		}
+		return false;
+	},
         
     start: function(property, from, to){  
         if (this.css3Supported) {
-			if (!this.check(property, from, to)) return this;
-			var args = Array.flatten(arguments);
-			this.property = this.options.property || args.shift();
-			var parsed = this.prepare(this.element, this.property, args);
-			this.from = parsed.from;
-			this.to = parsed.to;
+            if (!this.check(property, from, to)) return this;
+            var args = Array.flatten(arguments);
+            this.property = this.options.property || args.shift();
+            var parsed = this.prepare(this.element, this.property, args);
+            this.from = parsed.from;
+            this.to = parsed.to;
             this.boundComplete = function(event){
                 if(event.getPropertyName() == this.property /* && event.getElapsedTime() == this.options.duration */ ){
                     this.element.removeEvent('transitionend', this.boundComplete);
+                    this.boundComplete = null;
                     this.onComplete();
                 }
             }.bind(this);
@@ -116,8 +126,8 @@ Fx.Tween.CSS3 = new Class({
                 trans.delay(0.1);
             } else
                 trans();
-			this.onStart();
-			return this;
+            this.onStart();
+            return this;
         }
         return this.parent(property, from, to);
     },
@@ -126,6 +136,7 @@ Fx.Tween.CSS3 = new Class({
         if (this.css3Supported) {
             this.element.setStyle(this.transition, 'none');
             this.element.removeEvent('transitionend', this.boundComplete);
+            this.boundComplete = null;
         }
         this.parent();
     }
