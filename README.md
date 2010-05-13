@@ -34,13 +34,13 @@ Like:
 
 #### Tested on OSX 10.6:
 
-Safari 4: 30% faster than Fx.Tween
-Google Chrome: nearly equal compared to Fx.Tween
-Firefox 3.6: nearly equal compared to Fx.Tween
+- Safari 4: 30% faster than Fx.Tween
+- Google Chrome: nearly equal compared to Fx.Tween
+- Firefox 3.6: nearly equal compared to Fx.Tween
 
 #### Tested on iPhone 3GS:
 
-Mobile Safari: runns a lot faster (and smoother) than Fx.Tween (with default fps)
+- Mobile Safari: runns a lot faster (and smoother) than Fx.Tween (with default fps)
 
 
 How to use
