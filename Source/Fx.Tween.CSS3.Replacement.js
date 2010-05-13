@@ -36,7 +36,7 @@ Event.implement({
 
 });
 
-Element.implement ({
+Element.implement({
 	
     supportStyle: function(style){
         var value = this.style[style];
@@ -53,9 +53,21 @@ Element.implement ({
 
 });
 
-Fx.TweenCSS2 = eval(uneval(Fx.Tween));
+Object.prototype.clone = function() {
+	
+	var newObj = (this instanceof Array) ? [] : {};
+	for (i in this) {
+		if (i == 'clone') continue;
+		if (this[i] && typeof this[i] == "object") {
+			newObj[i] = this[i].clone();
+		} else newObj[i] = this[i]
+	} return newObj;
+		
+});
 
-Fx.Tween = new Class({
+Fx.TweenCSS2 = Fx.Tween;
+
+Fx.Tween.CSS3 = new Class({
     
     Extends: Fx.TweenCSS2,
     
