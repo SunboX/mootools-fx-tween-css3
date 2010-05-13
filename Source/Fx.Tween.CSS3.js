@@ -93,23 +93,26 @@ Fx.Tween.CSS3 = new Class({
         
     start: function(property, from, to){  
         if (this.css3Supported) {
-			this.property = property;
-			this.from = from;
-			this.to = to;
+			if (!this.check(property, from, to)) return this;
+			var args = Array.flatten(arguments);
+			this.property = this.options.property || args.shift();
+			var parsed = this.prepare(this.element, this.property, args);
+			this.from = parsed.from;
+			this.to = parsed.to;
             this.boundComplete = function(event){
-                if(event.getPropertyName() == property /* && event.getElapsedTime() == this.options.duration */ ){
+                if(event.getPropertyName() == this.property /* && event.getElapsedTime() == this.options.duration */ ){
                     this.element.removeEvent('transitionend', this.boundComplete);
                     this.onComplete();
                 }
             }.bind(this);
             this.element.addEvent('transitionend', this.boundComplete);
             var trans = function(){
-                this.element.setStyle(this.transition, property + ' ' + this.options.duration + 'ms cubic-bezier(' + this.transitionTimings[this.options.transition] + ')');
-                this.element.setStyle(property, (to || from));
+                this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + this.transitionTimings[this.options.transition] + ')');
+                this.element.setStyle(this.property, (to || from));
             }.bind(this);
             if(to){
                 this.element.setStyle(this.transition, 'none');
-                this.element.setStyle(property, from);
+                this.element.setStyle(this.property, from);
                 trans.delay(0.1);
             } else
                 trans();
