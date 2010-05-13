@@ -55,7 +55,7 @@ Element.implement({
 
 Fx.TweenCSS2 = Fx.Tween;
 
-Fx.Tween.CSS3 = new Class({
+Fx.Tween = new Class({
     
     Extends: Fx.TweenCSS2,
     
