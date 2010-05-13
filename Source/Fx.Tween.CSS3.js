@@ -58,9 +58,7 @@ Fx.Tween.CSS3 = new Class({
     Extends: Fx.Tween,
     
     transitionTimings: {
-        'linear:in'     : '0,0,1,1',
-        'linear:out'    : '0,0,1,1',
-        'linear:in:out' : '0,0,1,1',
+        'linear'        : '0,0,1,1',
         'expo:in'       : '0.71,0.01,0.83,0',
         'expo:out'      : '0.14,1,0.32,0.99',
         'expo:in:out'   : '0.85,0,0.15,1',
