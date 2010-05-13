@@ -95,6 +95,9 @@ Fx.Tween = new Class({
         
     start: function(property, from, to){  
         if (this.css3Supported) {
+			this.property = property;
+			this.from = from;
+			this.to = to;
             this.boundComplete = function(event){
                 if(event.getPropertyName() == property /* && event.getElapsedTime() == this.options.duration */ ){
                     this.element.removeEvent('transitionend', this.boundComplete);
@@ -112,8 +115,10 @@ Fx.Tween = new Class({
                 trans.delay(0.1);
             } else
                 trans();
-        } else
-            this.parent(property, from, to);
+			this.onStart();
+			return this;
+        }
+        return this.parent(property, from, to);
     },
 
     cancel: function(){
