@@ -92,12 +92,8 @@ Fx.Tween.CSS3 = new Class({
     },
 
    check: function(){
-        if (!this.timer || !this.boundComplete) return true;
-        switch (this.options.link){
-            case 'cancel': this.cancel(); return true;
-            case 'chain': this.chain(this.caller.bind(this, arguments)); return false;
-        }
-        return false;
+        if (!this.boundComplete) return true;
+        return this.parent();
     },
 
     start: function(property, from, to){  
