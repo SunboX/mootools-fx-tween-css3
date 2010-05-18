@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fx.Tween.CSS3 Demo</title>
+
+<style type="text/css">
+	
+	#test img {
+		position: absolute;
+		top: 0;
+		left: 0;
+	    width: 100%;
+		height: 100%;
+	}
+	
+	#btns {
+		position: absolute;
+		top: 20;
+		left: 20;
+		width: 200px;
+		z-index: 3;
+		background: white;
+		padding: 10px;
+	}
+	
+	.current {
+		color: red;
+	}
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js"></script>
+<script type="text/javascript" src="../Source/Fx.Tween.CSS3.js"></script>
+<script type="text/javascript">
+
+	Global = {};
+
+	window.addEvent('domready', function(){
+		
+		Global.imgs = $$('#test img');
+		
+		Global.setCSS2 = function(){
+			
+			$('css2').addClass('current');
+			
+			Global.imgs[0].setStyle('z-index', 1);
+			Global.imgs[1].setStyles({
+				'opacity': 0,
+				'z-index': 2
+			});
+			
+			var fxs = [
+				new Fx.Tween(Global.imgs[0], {
+					onComplete: function(){
+						Global.imgs[0].setStyle('z-index', 1);
+						Global.imgs[1].setStyles({
+							'opacity': 0,
+							'z-index': 2
+						});
+					}
+				}),
+				new Fx.Tween(Global.imgs[1], {
+					onComplete: function(){
+						Global.imgs[1].setStyle('z-index', 1);
+						Global.imgs[0].setStyles({
+							'opacity': 0,
+							'z-index': 2
+						});
+					}
+				})
+			];
+			
+			var act = 1;
+			(function(){
+
+				fxs[act].start('opacity', 1);
+				act = act == 1 ? 0 : 1;
+
+			}).periodical(2000);
+		}
+		
+		Global.setCSS3 = function(){
+		
+			$('css3').addClass('current');
+			
+			Global.imgs[0].setStyle('z-index', 1);
+			Global.imgs[1].setStyles({
+				'opacity': 0,
+				'z-index': 2
+			});
+			
+			var fxs = [
+				new Fx.Tween.CSS3(Global.imgs[0], {
+					onComplete: function(){
+						Global.imgs[0].setStyle('z-index', 1);
+						Global.imgs[1].setStyles({
+							'opacity': 0,
+							'z-index': 2
+						});
+					}
+				}),
+				new Fx.Tween.CSS3(Global.imgs[1], {
+					onComplete: function(){
+						Global.imgs[1].setStyle('z-index', 1);
+						Global.imgs[0].setStyles({
+							'opacity': 0,
+							'z-index': 2
+						});
+					}
+				})
+			];
+			
+			var act = 1;
+			(function(){
+
+				fxs[act].start('opacity', 1);
+				act = act == 1 ? 0 : 1;
+
+			}).periodical(2000);
+		}
+		
+		if(window.location.search == '?css2'){
+			//console.log('CSS 2');
+			Global.setCSS2();
+		} else {
+			//console.log('CSS 3');
+			Global.setCSS3();
+		}
+	});
+		
+</script>
+
+</head>
+<body>
+	<div id="btns">
+		<a href="test.html?css2" id="css2">Fx.Tween</a> <a href="test.html?css3" id="css3">Fx.Tween.CSS3</a>
+	</div>
+	<div id="test">
+	    <img src="img1.jpg" />
+		<img src="img2.jpg" />
+	</div>​
+</body>
+</html>
