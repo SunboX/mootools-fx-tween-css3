@@ -6,8 +6,7 @@ description: Same behavior like Fx.Tween but tries to use native CSS3 transition
 copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visualdrugs dot net>, based on code by eskimoblood (mootools users group)
 authors: [André Fiedler, eskimoblood]
 
-requires: 
-  core/1.2.3: [Class.Extras, Element.Event, Element.Style, Fx.Tween]
+requires: [Core/Class.Extras, Core/Element.Event, Core/Element.Style, Core/Fx.Tween]
 
 provides: [Fx.Tween]
 ...
