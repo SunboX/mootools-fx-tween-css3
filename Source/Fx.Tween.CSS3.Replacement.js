@@ -39,9 +39,9 @@ Element.implement({
         return !!(value || value == '');
     },
 
-    supportVendorStyle: function(style) {
+    supportVendorStyle: function(style){
         var prefixedStyle = null;
-        return this.supportStyle(style) ? style : ['webkit', 'Moz', 'o'].some(function(prefix) {
+        return this.supportStyle(style) ? style : ['webkit', 'Moz', 'o'].some(function(prefix){
             prefixedStyle = prefix + style.capitalize();
             return this.supportStyle(prefixedStyle);
         }, this) ? prefixedStyle : null;
@@ -80,7 +80,7 @@ Fx.Tween = new Class({
         'quint:in:out'  : '0.9,0,0.1,1'
     },
     
-    initialize: function(element, options) {
+    initialize: function(element, options){
         options.transition = options.transition || 'sine:in:out';
         this.parent(element, options);
         if (typeof this.options.transition != 'string') alert('Only short notated transitions (like \'sine:in\') are supported by Fx.Tween.CSS3');
@@ -95,7 +95,7 @@ Fx.Tween = new Class({
     },
 
     start: function(property, from, to){  
-        if (this.css3Supported) {
+        if (this.css3Supported){
             if (!this.check(property, from, to)) return this;
             var args = Array.flatten(arguments);
             this.property = this.options.property || args.shift();
@@ -103,7 +103,7 @@ Fx.Tween = new Class({
             this.from = parsed.from;
             this.to = parsed.to;
             this.boundComplete = function(event){
-                if(event.getPropertyName() == this.property /* && event.getElapsedTime() == this.options.duration */ ){
+                if (event.getPropertyName() == this.property /* && event.getElapsedTime() == this.options.duration */ ){
                     this.element.removeEvent('transitionend', this.boundComplete);
                     this.boundComplete = null;
                     this.onComplete();
@@ -114,7 +114,7 @@ Fx.Tween = new Class({
                 this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + this.transitionTimings[this.options.transition] + ')');
                 this.element.setStyle(this.property, this.to[0].value);
             }.bind(this);
-            if(args[1]){
+            if (args[1]){
                 this.element.setStyle(this.transition, 'none');
                 this.element.setStyle(this.property, this.from[0].value);
                 trans.delay(0.1);
@@ -127,7 +127,7 @@ Fx.Tween = new Class({
     },
 
     cancel: function(){
-        if (this.css3Supported) {
+        if (this.css3Supported){
             this.element.setStyle(this.transition, 'none');
             this.element.removeEvent('transitionend', this.boundComplete);
             this.boundComplete = null;
