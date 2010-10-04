@@ -1,5 +1,6 @@
 /*
 ---
+name: Fx.Tween.CSS3
 script: Fx.Tween.CSS3.js
 license: MIT-style license.
 description: Same behavior like Fx.Tween but tries to use native CSS3 transition if possible.
