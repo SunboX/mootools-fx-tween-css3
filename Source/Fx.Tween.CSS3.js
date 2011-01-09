@@ -17,9 +17,9 @@ Element.NativeEvents.transitionend = 2;
 Element.NativeEvents.webkitTransitionEnd = 2;
 Element.NativeEvents.oTransitionEnd = 2;
 
-Element.Events.set('transitionend', {
-	base: Browser.Engine.webkit ? 'webkitTransitionEnd' : (Browser.Engine.presto ? 'oTransitionEnd' : 'transitionend')
-});
+Element.Events.transitionend = {
+	base: Browser.safari || Browser.chrome ? 'webkitTransitionEnd' : (Browser.opera ? 'oTransitionEnd' : 'transitionend')
+};
 
 Event.implement({
 	
