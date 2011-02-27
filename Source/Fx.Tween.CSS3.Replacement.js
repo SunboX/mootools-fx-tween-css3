@@ -113,11 +113,11 @@ Fx.Tween = new Class({
 			this.element.addEvent('transitionend', this.boundComplete);
 			var trans = function(){
 				this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + this.transitionTimings[this.options.transition] + ')');
-				this.element.setStyle(this.property, this.to[0].value);
+				this.element.setStyle(this.property, this.to[0].value +  + this.options.unit);
 			}.bind(this);
 			if (args[1]){
 				this.element.setStyle(this.transition, 'none');
-				this.element.setStyle(this.property, this.from[0].value);
+				this.element.setStyle(this.property, this.from[0].value +  + this.options.unit);
 				trans.delay(0.1);
 			} else
 				trans();
