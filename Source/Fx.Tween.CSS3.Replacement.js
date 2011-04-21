@@ -18,7 +18,7 @@ Element.NativeEvents.webkitTransitionEnd = 2;
 Element.NativeEvents.oTransitionEnd = 2;
 
 Element.Events.transitionend = {
-	base: Browser.safari || Browser.chrome ? 'webkitTransitionEnd' : (Browser.opera ? 'oTransitionEnd' : 'transitionend')
+	base: Browser.safari || Browser.chrome ? 'webkitTransitionEnd' : (Browser.opera ? 'oTransitionEnd' : (Browser.ie && Browser.version > 8 ? 'msTransitionEnd' : 'transitionend'))
 };
 
 Event.implement({
@@ -37,12 +37,12 @@ Element.implement({
 	
 	supportStyle: function(style){
 		var value = this.style[style];
-		return !!(value || value == '');
+		return !!(value || value === '');
 	},
 
 	supportVendorStyle: function(style){
 		var prefixedStyle = null;
-		return this.supportStyle(style) ? style : ['webkit', 'Moz', 'o'].some(function(prefix){
+		return this.supportStyle(style) ? style : ['webkit', 'Moz', 'o', 'ms'].some(function(prefix){
 			prefixedStyle = prefix + style.capitalize();
 			return this.supportStyle(prefixedStyle);
 		}, this) ? prefixedStyle : null;
