@@ -16,6 +16,7 @@ provides: [Fx.Tween]
 Element.NativeEvents.transitionend = 2;
 Element.NativeEvents.webkitTransitionEnd = 2;
 Element.NativeEvents.oTransitionEnd = 2;
+Element.NativeEvents.msTransitionEnd = 2;
 
 Element.Events.transitionend = {
 	base: Browser.safari || Browser.chrome ? 'webkitTransitionEnd' : (Browser.opera ? 'oTransitionEnd' : (Browser.ie && Browser.version > 8 ? 'msTransitionEnd' : 'transitionend'))
