@@ -11,7 +11,7 @@ Like the Fx.Tween effect, Fx.Tween.CSS3 is used to transition any CSS property f
 Demos:
 ----------
 
-- You can see a simple online demo in [this shell](http://jsfiddle.net/SunboX/TAVWa/)
+- You can see a simple online demo in [this shell](http://jsfiddle.net/SunboX/TAVWa/84/)
 - More complex demo: [SqueezeBox using Fx.Tween.CSS3](http://jsfiddle.net/SunboX/bmMCy/)
 
 
