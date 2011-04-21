@@ -1,15 +1,15 @@
 /*
 ---
-name: Fx.Tween.CSS3
-script: Fx.Tween.CSS3.js
+name: Fx.Tween.CSS3.Replacement
+script: Fx.Tween.CSS3.Replacement.js
 license: MIT-style license.
-description: Same behavior like Fx.Tween but tries to use native CSS3 transition if possible.
+description: Same behavior like Fx.Tween but tries to use native CSS3 transition if possible (Overwrites Fx.Tween).
 copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visualdrugs dot net>, based on code by eskimoblood (mootools users group)
 authors: [André Fiedler, eskimoblood]
 
 requires: [Core/Class.Extras, Core/Element.Event, Core/Element.Style, Core/Fx.Tween]
 
-provides: [Fx.Tween.CSS3]
+provides: [Fx.Tween]
 ...
 */
 
@@ -33,7 +33,7 @@ Event.implement({
 
 });
 
-Element.implement ({
+Element.implement({
 	
 	supportStyle: function(style){
 		var value = this.style[style];
@@ -50,9 +50,11 @@ Element.implement ({
 
 });
 
-Fx.Tween.CSS3 = new Class({
+Fx.TweenCSS2 = Fx.Tween;
+
+Fx.Tween = new Class({
 	
-	Extends: Fx.Tween,
+	Extends: Fx.TweenCSS2,
 	
 	transitionTimings: {
 		'linear'		: '0,0,1,1',
@@ -87,7 +89,7 @@ Fx.Tween.CSS3 = new Class({
 		this.transition = this.element.supportVendorStyle('transition');
 		this.css3Supported = !!this.transition && !!this.transitionTimings[this.options.transition];
 	},
-
+		
 	check: function(){
 		if (!this.boundComplete) return true;
 		return this.parent();
@@ -105,21 +107,21 @@ Fx.Tween.CSS3 = new Class({
 				if (event.getPropertyName() == this.property /* && event.getElapsedTime() == this.options.duration */ ){
 					this.element.removeEvent('transitionend', this.boundComplete);
 					this.boundComplete = null;
-					this.fireEvent("complete", this);
+					this.onComplete();
 				}
 			}.bind(this);
 			this.element.addEvent('transitionend', this.boundComplete);
 			var trans = function(){
 				this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + this.transitionTimings[this.options.transition] + ')');
-				this.element.setStyle(this.property, this.to[0].value + this.options.unit);
+				this.element.setStyle(this.property, this.to[0].value);
 			}.bind(this);
 			if (args[1]){
 				this.element.setStyle(this.transition, 'none');
-				this.element.setStyle(this.property, this.from[0].value + this.options.unit);
+				this.element.setStyle(this.property, this.from[0].value);
 				trans.delay(0.1);
-			} else 
+			} else
 				trans();
-			this.fireEvent("start", this);
+			this.onStart();
 			return this;
 		}
 		return this.parent(property, from, to);
