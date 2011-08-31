@@ -102,53 +102,11 @@ var animatable = ['background-color', 'background-image', 'background-position',
 	'outline-width', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'right', 'text-indent', 'text-shadow',
 	'top', 'vertical-align', 'visibility', 'width', 'word-spacing', 'z-index', 'zoom'];
 	
-var CSS3 = new Class({
-	
-	cancel: function(){
-		if (this.css3Supported){
-			this.element.setStyle(this.transition, 'none');
-			this.element.removeEvent('transitionend', this.boundComplete);
-			this.boundComplete = null;
-		}
-		this.parent();
-		return this;
-	},
-	
-	stop: function() {
-		if (this.css3Supported){
-			return this;
-		}
-		return this.parent();
-	},
-	
-	pause: function() {
-		if (this.css3Supported){
-			return this;
-		}
-		return this.parent();
-	},
-	
-	resume: function() {
-		if (this.css3Supported){
-			return this;
-		}
-		return this.parent();
-	},
-	
-	isRunning: function() {
-		if (this.css3Supported){
-			return !!this.boundComplete;
-		}
-		return this.parent();
-	}
-});
-
 var tweenCSS2 = Fx.Tween;
 
 Fx.Tween = new Class({
 	
 	Extends: tweenCSS2,
-	Implements: CSS3,
 	
 	initialize: function(element, options){
 		options.transition = options.transition || 'sine:in:out';
@@ -193,6 +151,44 @@ Fx.Tween = new Class({
 			return this;
 		}
 		return this.parent(property, from, to);
+	},
+	
+	cancel: function(){
+		if (this.css3Supported){
+			this.element.setStyle(this.transition, 'none');
+			this.element.removeEvent('transitionend', this.boundComplete);
+			this.boundComplete = null;
+		}
+		this.parent();
+		return this;
+	},
+	
+	stop: function() {
+		if (this.css3Supported){
+			return this;
+		}
+		return this.parent();
+	},
+	
+	pause: function() {
+		if (this.css3Supported){
+			return this;
+		}
+		return this.parent();
+	},
+	
+	resume: function() {
+		if (this.css3Supported){
+			return this;
+		}
+		return this.parent();
+	},
+	
+	isRunning: function() {
+		if (this.css3Supported){
+			return !!this.boundComplete;
+		}
+		return this.parent();
 	}
 });
 
@@ -204,7 +200,6 @@ var morphCSS2 = Fx.Morph;
 Fx.Morph = new Class({
 	
 	Extends: morphCSS2,
-	Implements: CSS3,
 	
 	initializeCSS3: function(element, options){
 		options.transition = options.transition || 'sine:in:out';
@@ -257,6 +252,44 @@ Fx.Morph = new Class({
 			return this;
 		}
 		return this.parent(properties);
+	},
+	
+	cancel: function(){
+		if (this.css3Supported){
+			this.element.setStyle(this.transition, 'none');
+			this.element.removeEvent('transitionend', this.boundComplete);
+			this.boundComplete = null;
+		}
+		this.parent();
+		return this;
+	},
+	
+	stop: function() {
+		if (this.css3Supported){
+			return this;
+		}
+		return this.parent();
+	},
+	
+	pause: function() {
+		if (this.css3Supported){
+			return this;
+		}
+		return this.parent();
+	},
+	
+	resume: function() {
+		if (this.css3Supported){
+			return this;
+		}
+		return this.parent();
+	},
+	
+	isRunning: function() {
+		if (this.css3Supported){
+			return !!this.boundComplete;
+		}
+		return this.parent();
 	}
 });
 
