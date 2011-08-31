@@ -139,11 +139,11 @@ Fx.Tween = new Class({
 			this.element.addEvent('transitionend', this.boundComplete);
 			var trans = function(){
 				this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + transitionTimings[this.options.transition] + ')');
-				this.element.setStyle(this.property, this.to[0].value + this.options.unit);
+				this.set(this.compute(parsed.from, parsed.to, 1));
 			}.bind(this);
 			if (args[1]){
 				this.element.setStyle(this.transition, 'none');
-				this.element.setStyle(this.property, this.from[0].value + this.options.unit);
+				this.set(this.compute(parsed.from, parsed.to, 0));
 				trans.delay(0.1);
 			} else
 				trans();
@@ -244,10 +244,10 @@ Fx.Morph = new Class({
 				transStyles[this.transitionDuration] = this.options.duration + 'ms';
 				transStyles[this.transitionTimingFunction] = 'cubic-bezier(' + transitionTimings[this.options.transition] + ')';
 				this.element.setStyles(transStyles);
-				this.element.setStyles(Object.map(to, function(v) { return v[0].value; }.bind(this)));
+				this.set(this.compute(from, to, 1));
 			}.bind(this);
 			this.element.setStyle(this.transitionProperty, 'none');
-			this.element.setStyles(Object.map(from, function(v) { return v[0].value; }.bind(this)));
+			this.set(this.compute(from, to, 0));
 			trans.delay(0.1);
 			this.fireEvent('start', this);
 			return this;
