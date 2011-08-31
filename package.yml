@@ -15,7 +15,6 @@ copyright: "Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visua
 
 sources:
   - "Source/Fx.CSS3.js"
-  - "Source/Fx.CSS3.Replacement.js"
   
 # Values for MooTools forge
   

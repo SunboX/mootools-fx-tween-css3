@@ -1,11 +1,11 @@
 /*
 ---
 name: Fx.CSS3
-script: Fx.CSS3.js
+script: Fx.CSS3.Replacementjs
 license: MIT-style license.
-description: Tries to do all Tween and Morphs using css3 transition rather than javascript animation
-copyright: Copyright (c) 2011 Fred Cox mcfedr@gmail.com
+description: Tries to do all Tween and Morphs using css3 transition rather than javascript animation. Overrides Fx.Tween and Fx.Morph
 copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visualdrugs dot net>, based on code by eskimoblood (mootools users group)
+copyright: Copyright (c) 2011 Fred Cox mcfedr@gmail.com
 authors: [Fred Cox, André Fiedler, eskimoblood]
 
 requires: [Core/Class.Extras, Core/Element.Event, Core/Element.Style, Core/Fx.Tween, Core/Fx.Morph]
@@ -109,10 +109,11 @@ var CSS3Funcs = {
 		this.parent(element, options);
 		if (typeof this.options.transition != 'string') alert('Only short notated transitions (like \'sine:in\') are supported by Fx.Tween.CSS3');
 		this.options.transition = this.options.transition.toLowerCase();
-		this.transition = this.element.supportVendorStyle('transition');
-		this.transitionProperty = this.element.supportVendorStyle('transition-property');
-		this.transitionDuration = this.element.supportVendorStyle('transition-duration');
-		this.transitionTimingFunction = this.element.supportVendorStyle('transition-timing-function');
+		var e = this.element || this.elements[0];
+		this.transition = e.supportVendorStyle('transition');
+		this.transitionProperty = e.supportVendorStyle('transition-property');
+		this.transitionDuration = e.supportVendorStyle('transition-duration');
+		this.transitionTimingFunction = e.supportVendorStyle('transition-timing-function');
 		this.css3Supported = !!this.transition && !!transitionTimings[this.options.transition];
 	},
 	
@@ -155,9 +156,11 @@ var CSS3Funcs = {
 	}
 };
 
-Fx.Tween.CSS3 = new Class({
+var tweenCSS2 = Fx.Tween;
+
+Fx.Tween = new Class({
 	
-	Extends: Fx.Tween,
+	Extends: tweenCSS2,
 	
 	check: function(property){
 		return (this.css3Supported && !this.boundComplete && animatable.contains(property)) || this.parent();
@@ -196,13 +199,16 @@ Fx.Tween.CSS3 = new Class({
 	},
 });
 
-Fx.Tween.CSS3.implement(CSS3Funcs);
+Fx.Tween.implement(CSS3Funcs);
 
-Fx.Tween.CSS2 = Fx.Tween;
+Fx.Tween.CSS2 = tweenCSS2;
+Fx.Tween.CSS3 = Fx.Tween;
 
-Fx.Morph.CSS3 = new Class({
+var morphCSS2 = Fx.Morph;
+
+Fx.Morph = new Class({
 	
-	Extends: Fx.Morph,
+	Extends: morphCSS2,
 	
 	check: function(properties){
 		return (this.css3Supported && !this.boundComplete && animatable.containsArray(Object.keys(properties))) || this.parent();
@@ -247,8 +253,50 @@ Fx.Morph.CSS3 = new Class({
 	}
 });
 
-Fx.Morph.CSS3.implement(CSS3Funcs);
+Fx.Morph.implement(CSS3Funcs);
 
-Fx.Morph.CSS2 = Fx.Morph;
+Fx.Morph.CSS2 = morphCSS2;
+Fx.Morph.CSS3 = Fx.Morph;
+
+var elementsCSS2 = Fx.Elements;
+if(elementsCSS2) {
+	Fx.Elements = new Class({
+		Extends: elementsCSS2,
+	
+		check: function(obj){
+			return (this.css3Supported && !this.boundComplete && Object.every(obj, function(properties) { return animatable.containsArray(Object.keys(properties)); })) || this.parent();
+		},
+
+		start: function(obj){
+			if (this.css3Supported){
+				if (!this.check(obj)) return this;
+			
+				var count = 0;
+				var complete = function() {
+					if(count-- == 0) {
+						this.fireEvent('complete', this);
+					}
+				}.bind(this);
+			
+				Object.each(obj, function(properties, key) {
+					if(this.elements[key]) {
+						new Fx.Morph(this.elements[key], Object.merge({}, this.options, {
+							onComplete: complete
+						})).start(properties);
+					}
+				}, this);
+			
+				this.fireEvent('start', this);
+				return this;
+			}
+			return this.parent(properties);
+		}
+	});
+
+	Fx.Elements.implement(CSS3Funcs);
+
+	Fx.Elements.CSS2 = elementsCSS2;
+	Fx.Elements.CSS3 = Fx.Elements;
+}
 
 })();
