@@ -198,7 +198,7 @@ Fx.Morph.CSS3 = new Class({
 	
 	Extends: Fx.Morph.CSS2,
 	
-	initializeCSS3: function(element, options){
+	initialize: function(element, options){
 		options.transition = options.transition || 'sine:in:out';
 		this.parent(element, options);
 		if (typeof this.options.transition != 'string') alert('Only short notated transitions (like \'sine:in\') are supported by Fx.Tween.CSS3');
