@@ -5,7 +5,7 @@ Mimics the Fx behavior but tries to use native CSS3 transition if possible.
 Like the Fx effect, Fx.CSS3 is used to transition any CSS property from one value to another.
 
 
-![Screenshot](https://github.com/mcfedr/mootools-fx-tween-css3/raw/master/screen.png)
+![Screenshot](https://github.com/mcfedr/mootools-fx-css3/raw/master/screen.png)
 
 
 Demos:
@@ -80,4 +80,4 @@ How to use
 License
 ----------
 
-See [license](http://github.com/mcfedr/mootools-fx-tween-css3/blob/master/license) file.
+See [license](http://github.com/mcfedr/mootools-fx-css3/blob/master/license) file.
