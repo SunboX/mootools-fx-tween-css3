@@ -1,17 +1,17 @@
-Fx.Tween.CSS3
+Fx.CSS3
 =========
 
-Mimics the Fx.Tween behavior but tries to use native CSS3 transition if possible.
-Like the Fx.Tween effect, Fx.Tween.CSS3 is used to transition any CSS property from one value to another.
+Mimics the Fx behavior but tries to use native CSS3 transition if possible.
+Like the Fx effect, Fx.CSS3 is used to transition any CSS property from one value to another.
 
 
-![Screenshot](https://github.com/SunboX/mootools-fx-tween-css3/raw/master/screen.png)
+![Screenshot](https://github.com/mcfedr/mootools-fx-tween-css3/raw/master/screen.png)
 
 
 Demos:
 ----------
 
-- You can see a simple online demo in [this shell](http://jsfiddle.net/SunboX/TAVWa/84/)
+- You can see a simple online demo in [this shell](http://jsfiddle.net/mcfedr/6tX7A/)
 - More complex demo: [SqueezeBox using Fx.Tween.CSS3](http://jsfiddle.net/SunboX/bmMCy/)
 
 
@@ -80,4 +80,4 @@ How to use
 License
 ----------
 
-See [license](http://github.com/SunboX/mootools-fx-tween-css3/blob/master/license) file.
+See [license](http://github.com/mcfedr/mootools-fx-tween-css3/blob/master/license) file.

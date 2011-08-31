@@ -6,7 +6,7 @@
 
 <style type="text/css">
 
-	#test {
+	#test, #test2 {
     	font-family: Verdana, Arial;
     	color: #fff;
     	background: lime;
@@ -18,7 +18,7 @@
 </style>
 
 <script type="text/javascript" src="mootools-core-1.3-full-nocompat.js"></script>
-<script type="text/javascript" src="../Source/Fx.Tween.CSS3.js"></script>
+<script type="text/javascript" src="../Source/Fx.CSS3.js"></script>
 <script type="text/javascript">
 
 	window.addEvent('domready', function(){ 
@@ -29,13 +29,30 @@
 	    });
 	
 	    fx.addEvent('complete', function(){
-	        alert('complete');
+	       console.log('complete')
 	    });
 
 	    var to = 100;
     	$('test').addEvent('click', function(){
 	        //fx.start('height', 100, 300);
 	        fx.start('height', (to == 100 ? (to = 300) : (to = 100)));
+	        //fx.cancel.delay(200, fx);
+	    });
+	
+		var fx2 = new Fx.Morph.CSS3('test2', {
+	        duration: 605,
+	        transition: 'quint:in'
+	    });
+	
+	    fx2.addEvent('complete', function(){
+	       console.log('complete')
+	    });
+
+	    var to = 100;
+    	$('test2').addEvent('click', function(){
+	        //fx.start('height', 100, 300);
+	        fx2.start({'height' : [200, (to == 100 ? 300 : 100)],
+						'width' : [200, (to == 100 ? (to = 300) : (to = 100))] });
 	        //fx.cancel.delay(200, fx);
 	    });
 
@@ -47,6 +64,9 @@
 <body>
 	<div id="test">
 	    click here to test tween
+	</div>​
+	<div id="test2">
+	    click here to test morph
 	</div>​
 </body>
 </html>
