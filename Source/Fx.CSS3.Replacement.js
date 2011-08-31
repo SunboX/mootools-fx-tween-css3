@@ -206,10 +206,11 @@ Fx.Morph = new Class({
 		this.parent(element, options);
 		if (typeof this.options.transition != 'string') alert('Only short notated transitions (like \'sine:in\') are supported by Fx.Tween.CSS3');
 		this.options.transition = this.options.transition.toLowerCase();
+		this.transition = this.element.supportVendorStyle('transition');
 		this.transitionProperty = this.element.supportVendorStyle('transition-property');
 		this.transitionDuration = this.element.supportVendorStyle('transition-duration');
 		this.transitionTimingFunction = this.element.supportVendorStyle('transition-timing-function');
-		this.css3Supported = !!this.transitionProperty && !!transitionTimings[this.options.transition];
+		this.css3Supported = !!this.transition && !!transitionTimings[this.options.transition];
 	},
 	
 	check: function(properties){
