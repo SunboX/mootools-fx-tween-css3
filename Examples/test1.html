@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fx.Tween.CSS3 Demo</title>
+
+<style type="text/css">
+
+	#test, #test2 {
+    	font-family: Verdana, Arial;
+    	color: #fff;
+    	background: lime;
+    	height: 100px;
+    	padding: 10px;
+    	cursor: pointer;
+	}
+
+</style>
+
+<script type="text/javascript" src="mootools-core-1.3-full-nocompat.js"></script>
+<script type="text/javascript" src="../Source/Fx.CSS3.Replacement.js"></script>
+<script type="text/javascript">
+
+	window.addEvent('domready', function(){ 
+
+		var fx = new Fx.Tween('test', {
+	        duration: 605,
+	        transition: 'quint:in'
+	    });
+	
+	    fx.addEvent('complete', function(){
+	       console.log('complete')
+	    });
+
+	    var to = 100;
+    	$('test').addEvent('click', function(){
+	        //fx.start('height', 100, 300);
+	        fx.start('height', (to == 100 ? (to = 300) : (to = 100)));
+	        //fx.cancel.delay(200, fx);
+	    });
+	
+		var fx2 = new Fx.Morph('test2', {
+	        duration: 605,
+	        transition: 'quint:in'
+	    });
+	
+	    fx2.addEvent('complete', function(){
+	       console.log('complete')
+	    });
+
+	    var to = 100;
+    	$('test2').addEvent('click', function(){
+	        //fx.start('height', 100, 300);
+	        fx2.start({'height' : [200, (to == 100 ? 300 : 100)],
+						'width' : [200, (to == 100 ? (to = 300) : (to = 100))] });
+	        //fx.cancel.delay(200, fx);
+	    });
+
+	});
+		
+</script>
+
+</head>
+<body>
+	<div id="test">
+	    click here to test tween
+	</div>​
+	<div id="test2">
+	    click here to test morph
+	</div>​
+</body>
+</html>
