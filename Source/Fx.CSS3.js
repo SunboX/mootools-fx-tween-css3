@@ -102,55 +102,18 @@ var animatable = ['background-color', 'background-image', 'background-position',
 	'outline-width', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'right', 'text-indent', 'text-shadow',
 	'top', 'vertical-align', 'visibility', 'width', 'word-spacing', 'z-index', 'zoom'];
 	
-Fx.Tween.CSS2 = Fx.Tween;
 
-Fx.Tween.CSS3 = new Class({
-	
-	Extends: Fx.Tween.CSS2,
-	
+var CSS3Funcs = {
 	initialize: function(element, options){
 		options.transition = options.transition || 'sine:in:out';
 		this.parent(element, options);
 		if (typeof this.options.transition != 'string') alert('Only short notated transitions (like \'sine:in\') are supported by Fx.Tween.CSS3');
 		this.options.transition = this.options.transition.toLowerCase();
 		this.transition = this.element.supportVendorStyle('transition');
+		this.transitionProperty = this.element.supportVendorStyle('transition-property');
+		this.transitionDuration = this.element.supportVendorStyle('transition-duration');
+		this.transitionTimingFunction = this.element.supportVendorStyle('transition-timing-function');
 		this.css3Supported = !!this.transition && !!transitionTimings[this.options.transition];
-	},
-	
-	check: function(property){
-		return (this.css3Supported && !this.boundComplete && animatable.contains(property)) || this.parent();
-	},
-
-	start: function(property, from, to){
-		if (this.css3Supported){
-			if (!this.check(property, from, to)) return this;
-			var args = Array.flatten(arguments);
-			this.property = this.options.property || args.shift();
-			var parsed = this.prepare(this.element, this.property, args);
-			this.from = parsed.from;
-			this.to = parsed.to;
-			this.boundComplete = function(event){
-				if (event.getPropertyName() == this.property){
-					this.element.removeEvent('transitionend', this.boundComplete);
-					this.boundComplete = null;
-					this.fireEvent('complete', this);
-				}
-			}.bind(this);
-			this.element.addEvent('transitionend', this.boundComplete);
-			var trans = function(){
-				this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + transitionTimings[this.options.transition] + ')');
-				this.set(this.compute(parsed.from, parsed.to, 1));
-			}.bind(this);
-			if (args[1]){
-				this.element.setStyle(this.transition, 'none');
-				this.set(this.compute(parsed.from, parsed.to, 0));
-				trans.delay(0.1);
-			} else
-				trans();
-            this.fireEvent('start', this);
-			return this;
-		}
-		return this.parent(property, from, to);
 	},
 	
 	cancel: function(){
@@ -190,25 +153,56 @@ Fx.Tween.CSS3 = new Class({
 		}
 		return this.parent();
 	}
+};
+
+Fx.Tween.CSS3 = new Class({
+	
+	Extends: Fx.Tween,
+	
+	check: function(property){
+		return (this.css3Supported && !this.boundComplete && animatable.contains(property)) || this.parent();
+	},
+
+	start: function(property, from, to){
+		if (this.css3Supported){
+			if (!this.check(property, from, to)) return this;
+			var args = Array.flatten(arguments);
+			this.property = this.options.property || args.shift();
+			var parsed = this.prepare(this.element, this.property, args);
+			this.from = parsed.from;
+			this.to = parsed.to;
+			this.boundComplete = function(event){
+				if (event.getPropertyName() == this.property){
+					this.element.removeEvent('transitionend', this.boundComplete);
+					this.boundComplete = null;
+					this.fireEvent('complete', this);
+				}
+			}.bind(this);
+			this.element.addEvent('transitionend', this.boundComplete);
+			var trans = function(){
+				this.element.setStyle(this.transition, this.property + ' ' + this.options.duration + 'ms cubic-bezier(' + transitionTimings[this.options.transition] + ')');
+				this.set(this.compute(parsed.from, parsed.to, 1));
+			}.bind(this);
+			if (args[1]){
+				this.element.setStyle(this.transition, 'none');
+				this.set(this.compute(parsed.from, parsed.to, 0));
+				trans.delay(0.1);
+			} else
+				trans();
+            this.fireEvent('start', this);
+			return this;
+		}
+		return this.parent(property, from, to);
+	},
 });
 
-Fx.Morph.CSS2 = Fx.Morph;
+Fx.Tween.CSS3.implement(CSS3Funcs);
+
+Fx.Tween.CSS2 = Fx.Tween;
 
 Fx.Morph.CSS3 = new Class({
 	
-	Extends: Fx.Morph.CSS2,
-	
-	initialize: function(element, options){
-		options.transition = options.transition || 'sine:in:out';
-		this.parent(element, options);
-		if (typeof this.options.transition != 'string') alert('Only short notated transitions (like \'sine:in\') are supported by Fx.Tween.CSS3');
-		this.options.transition = this.options.transition.toLowerCase();
-		this.transition = this.element.supportVendorStyle('transition');
-		this.transitionProperty = this.element.supportVendorStyle('transition-property');
-		this.transitionDuration = this.element.supportVendorStyle('transition-duration');
-		this.transitionTimingFunction = this.element.supportVendorStyle('transition-timing-function');
-		this.css3Supported = !!this.transition && !!transitionTimings[this.options.transition];
-	},
+	Extends: Fx.Morph,
 	
 	check: function(properties){
 		return (this.css3Supported && !this.boundComplete && animatable.containsArray(Object.keys(properties))) || this.parent();
@@ -250,45 +244,11 @@ Fx.Morph.CSS3 = new Class({
 			return this;
 		}
 		return this.parent(properties);
-	},
-	
-	cancel: function(){
-		if (this.css3Supported){
-			this.element.setStyle(this.transition, 'none');
-			this.element.removeEvent('transitionend', this.boundComplete);
-			this.boundComplete = null;
-		}
-		this.parent();
-		return this;
-	},
-	
-	stop: function() {
-		if (this.css3Supported){
-			return this;
-		}
-		return this.parent();
-	},
-	
-	pause: function() {
-		if (this.css3Supported){
-			return this;
-		}
-		return this.parent();
-	},
-	
-	resume: function() {
-		if (this.css3Supported){
-			return this;
-		}
-		return this.parent();
-	},
-	
-	isRunning: function() {
-		if (this.css3Supported){
-			return !!this.boundComplete;
-		}
-		return this.parent();
 	}
 });
+
+Fx.Morph.CSS3.implement(CSS3Funcs);
+
+Fx.Morph.CSS2 = Fx.Morph;
 
 })();
