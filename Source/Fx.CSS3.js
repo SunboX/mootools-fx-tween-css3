@@ -8,10 +8,9 @@ copyright: Copyright (c) 2010, Dipl.-Ing. (FH) André Fiedler <kontakt at visual
 copyright: Copyright (c) 2011 Fred Cox mcfedr@gmail.com
 authors: [Fred Cox, André Fiedler, eskimoblood]
 
-requires: [Core/Class.Extras, Core/Element.Event, Core/Element.Style,
-	Core/Fx, Core/Fx.Tween, Core/Fx.Morph, More/Array.Extras, More/Fx.Elements]
+requires: [Core/Class.Extras, Core/Element.Event, Core/Element.Style, Core/Fx, Core/Fx.Tween, Core/Fx.Morph, More/Array.Extras, More/Fx.Elements]
 
-provides: [Fx.CSS3Funcs, Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
+provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 ...
 */
 
