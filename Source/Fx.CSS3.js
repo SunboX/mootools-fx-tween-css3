@@ -75,7 +75,7 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 				transitionProperty: prefix + 'TransitionProperty',
 				transitionDuration: prefix + 'TransitionDuration',
 				transitionTimingFunction : prefix + 'TransitionTimingFunction',
-				transitionend: (prefix == 'ms' || prefix == 'Moz') ? 'transitionEnd' : prefix + 'TransitionEnd'
+				transitionend: prefix == 'Moz' ? 'transitionend' : (prefix == 'ms' ? 'MS' : prefix) + 'TransitionEnd'
 			}
 		}
 		return false;
