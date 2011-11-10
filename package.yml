@@ -1,6 +1,6 @@
 name: Fx.CSS3
 
-current: "2.2"
+current: 2.2.0
 
 web: "[github.com/mcfedr/mootools-fx-css3](http://github.com/mcfedr/mootools-fx-css3)"
 
