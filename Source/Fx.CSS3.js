@@ -83,7 +83,7 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 	
 	Element.NativeEvents[css3Features.transitionend] = 2;
 	
-	Event.implement({
+	(window.DOMEvent||window.Event).implement({
 		getPropertyName: function(){
 			return this.event.propertyName;
 		},
