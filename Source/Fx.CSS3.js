@@ -83,7 +83,7 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 	
 	Element.NativeEvents[css3Features.transitionend] = 2;
 	
-	Event.implement({
+	(window.DOMEvent||window.Event).implement({
 		getPropertyName: function(){
 			return this.event.propertyName;
 		},
@@ -268,8 +268,9 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 (function() {
 	
 	var tweenCSS2 = Fx.Tween;
+	var tweenCSS3;
 
-	Fx.Tween = new Class({
+	tweenCSS3 = new Class({
 
 		Extends: tweenCSS2,
 
@@ -288,11 +289,11 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 		}
 	});
 
-	Fx.Tween.implement(Fx.CSS3Funcs);
-	Fx.Tween.implement(Fx.CSS3Stop);
+	tweenCSS3.implement(Fx.CSS3Funcs);
+	tweenCSS3.implement(Fx.CSS3Stop);
 
 	Fx.Tween.CSS2 = tweenCSS2;
-	Fx.Tween.CSS3 = Fx.Tween;
+	Fx.Tween.CSS3 = tweenCSS3;
 	
 })();
 
@@ -300,8 +301,9 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 (function() {
 	
 	var morphCSS2 = Fx.Morph;
+	var morphCSS3;
 	
-	Fx.Morph = new Class({
+	morphCSS3 = new Class({
 
 		Extends: morphCSS2,
 
@@ -327,12 +329,11 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 		}
 	});
 
-	Fx.Morph.implement(Fx.CSS3Funcs);
-	Fx.Morph.implement(Fx.CSS3Stop);
+	morphCSS3.implement(Fx.CSS3Funcs);
+	morphCSS3.implement(Fx.CSS3Stop);
 
 	Fx.Morph.CSS2 = morphCSS2;
-	Fx.Morph.CSS3 = Fx.Morph;
-	
+	Fx.Morph.CSS3 = morphCSS3;
 })();
 
 (function() {
@@ -340,8 +341,9 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 	if(Fx.Elements) {
 	
 		var elementsCSS2 = Fx.Elements;
+		var elementsCSS3;
 
-		Fx.Elements = new Class({
+		elementsCSS3 = new Class({
 			Extends: elementsCSS2,
 		
 			initializeCSS3: function(elements, options){
@@ -424,10 +426,10 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 			}
 		});
 
-		Fx.Elements.implement(Fx.CSS3Funcs);
+		elementsCSS3.implement(Fx.CSS3Funcs);
 
 		Fx.Elements.CSS2 = elementsCSS2;
-		Fx.Elements.CSS3 = Fx.Elements;
+		Fx.Elements.CSS3 = elementsCSS3;
 	
 	}
 
