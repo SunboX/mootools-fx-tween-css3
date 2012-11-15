@@ -434,3 +434,49 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 	}
 
 })();
+
+/**
+ * 'tweenCSS3' and 'morphCSS3' properties
+ */
+(function() {
+	Element.Properties.tweenCSS3 = {
+		set: function(options){
+			this.get('tweenCSS3').cancel().setOptions(options);
+			return this;
+		},
+		get: function(){
+			var tween = this.retrieve('tweenCSS3');
+			if (!tween){
+				tween = new Fx.Tween.CSS3(this, {link: 'cancel'});
+				this.store('tweenCSS3', tween);
+			}
+			return tween;
+		}
+	};
+
+	Element.Properties.morphCSS3 = {
+		set: function(options){
+			this.get('morphCSS3').cancel().setOptions(options);
+			return this;
+		},
+		get: function(){
+			var morph = this.retrieve('morphCSS3');
+			if (!morph){
+				morph = new Fx.Morph.CSS3(this, {link: 'cancel'});
+				this.store('morphCSS3', morph);
+			}
+			return morph;
+		}
+
+	};
+	Element.implement({
+		tweenCSS3: function(property, from, to){
+			this.get('tweenCSS3').start(property, from, to);
+			return this;
+		},
+		morphCSS3: function(props){
+			this.get('morphCSS3').start(props);
+			return this;
+		}
+	});
+})();
