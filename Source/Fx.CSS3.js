@@ -157,7 +157,6 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 		},
 		
 		startCSS3: function(properties, from, to) {
-			if(!this.check()) return this;
 			
 			if(!Object.isEqual(from, to)) {
 				this.preTransStyles = this.element.getStyles(Fx.CSS3Funcs.css3Features.transitionProperty,
@@ -282,6 +281,8 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 			var args = Array.flatten(arguments);
 			this.property = this.options.property || args.shift();
 			if ((this.css3Supported = this.checkCSS3(this.property))) {
+				if(!this.check(property, from, to)) return this;
+				
 				var parsed = this.prepare(this.element, this.property, args);
 				return this.startCSS3([this.property], parsed.from, parsed.to);
 			}
@@ -313,6 +314,8 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 		
 		start: function(properties){
 			if ((this.css3Supported = this.checkCSS3(properties))) {
+				if(!this.check(properties)) return this;
+				
 				if (typeof properties == 'string') properties = this.search(properties);
 				var from = {}, to = {}, usedProps = [];
 				for (var p in properties){
@@ -382,7 +385,7 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 
 			start: function(obj){
 				if ((this.css3Supported = this.checkCSS3(obj))) {
-					if(!this.check()) return this;
+					if(!this.check(obj)) return this;
 					this.count = 0;
 
 					Object.each(obj, function(properties, key) {
