@@ -182,12 +182,12 @@ provides: [Fx.Tween.CSS3, Fx.Morph.CSS3, Fx.Elements.CSS3]
 				}.bind(this);
 
 				this.element.addEvent(Fx.CSS3Funcs.css3Features.transitionend, this.boundComplete);
-				
 				var trans = function(){
 					var transStyles = {};
 					transStyles[Fx.CSS3Funcs.css3Features.transitionProperty] =
 						properties.reduce(function(a, b) { return a + ', '  + b; });
-					transStyles[Fx.CSS3Funcs.css3Features.transitionDuration] = this.options.duration + 'ms';
+               // check if duration is a valid string or number
+					transStyles[Fx.CSS3Funcs.css3Features.transitionDuration] = (Fx.Durations[this.options.duration] || this.options.duration.toInt() || 500) + 'ms';
 					transStyles[Fx.CSS3Funcs.css3Features.transitionTimingFunction] = 
 						'cubic-bezier(' + Fx.CSS3Funcs.transitionTimings[this.options.transition] + ')';
 					this.element.setStyles(transStyles);
